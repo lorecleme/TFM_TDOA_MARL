@@ -59,7 +59,7 @@ Set via `env_args.target_pos_mode`:
 
 ## Architecture
 
-TransfQMix (Gallici et. al, 2024)
+TransfQMix (Gallici et. al, 2023)
 
 ## Directory structure
 
