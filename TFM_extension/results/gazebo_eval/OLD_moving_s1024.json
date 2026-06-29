@@ -1,0 +1,17 @@
+{
+  "episode_length_s": 60.0,
+  "n_samples": 12,
+  "mean_quality": 0.442,
+  "max_quality": 0.697,
+  "final_quality": 0.697,
+  "mean_dist_m": 60.3,
+  "min_dist_m": 27.5,
+  "target_in_triangle_pct": 0.0,
+  "model": "OLD",
+  "scenario": "moving",
+  "seed": 1024,
+  "timestamp": "2026-06-26T16:55:41.762799",
+  "noise_std": 0.05,
+  "landmark_source": "ground_truth",
+  "target_moving": "true"
+}

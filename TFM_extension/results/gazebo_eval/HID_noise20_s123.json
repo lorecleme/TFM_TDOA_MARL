@@ -1,0 +1,17 @@
+{
+  "episode_length_s": 60.0,
+  "n_samples": 12,
+  "mean_quality": 0.656,
+  "max_quality": 0.781,
+  "final_quality": 0.527,
+  "mean_dist_m": 67.3,
+  "min_dist_m": 29.2,
+  "target_in_triangle_pct": 16.7,
+  "model": "HID",
+  "scenario": "noise20",
+  "seed": 123,
+  "timestamp": "2026-06-26T17:14:21.619659",
+  "noise_std": 0.2,
+  "landmark_source": "hidden",
+  "target_moving": "false"
+}

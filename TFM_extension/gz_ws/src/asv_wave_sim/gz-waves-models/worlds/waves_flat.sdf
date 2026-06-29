@@ -1,0 +1,137 @@
+<?xml version="1.0" ?>
+<!--
+  waves_flat.sdf — Flat water world for TDOA tracking experiments.
+
+  Identical vessel spawn layout as waves.sdf, but with:
+    - No gz-waves plugin (eliminates FFT wave CPU cost entirely)
+    - Simple flat ground plane as water surface
+    - Same 100 Hz physics cap
+    - Same vessel positions
+
+  Use this when you want maximum simulation speed with no wave physics.
+  Expect ~3-5x faster real-time factor vs. waves.sdf on CPU-limited machines.
+
+  Launch with:
+    ros2 launch move_blueboat launch_tdoa_tracking.launch.py world:=waves_flat.sdf
+-->
+<sdf version="1.6">
+  <world name="waves_flat">
+
+    <!-- ── Physics: 100 Hz cap (same as waves.sdf) ──────────────────────── -->
+    <physics name="fast_physics" type="ode">
+      <max_step_size>0.01</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>100</real_time_update_rate>
+    </physics>
+
+    <plugin filename="gz-sim-physics-system"
+            name="gz::sim::systems::Physics">
+    </plugin>
+    <plugin filename="gz-sim-scene-broadcaster-system"
+            name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+    <plugin filename="gz-sim-user-commands-system"
+            name="gz::sim::systems::UserCommands">
+    </plugin>
+    <plugin
+      filename="gz-sim-navsat-system"
+      name="gz::sim::systems::NavSat">
+    </plugin>
+
+    <!-- GPS / world origin -->
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <world_frame_orientation>ENU</world_frame_orientation>
+      <latitude_deg>-22.986687</latitude_deg>
+      <longitude_deg>-43.202501</longitude_deg>
+      <elevation>0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+
+    <scene>
+      <ambient>1.0 1.0 1.0</ambient>
+      <background>0.5 0.7 0.9</background>
+    </scene>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.6 0.6 0.6 1</specular>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <!-- ── "Flat" water = waves model with zero wind (calm sea) ─────────── -->
+    <!-- The blueboat uses gz-waves1-hydrodynamics-system which REQUIRES the  -->
+    <!-- waves model to be present. We keep it but zero out wind & steepness  -->
+    <!-- so the surface is perfectly flat — boats float and move normally.    -->
+    <include>
+      <pose>0 0 0 0 0 0</pose>
+      <uri>model://waves_calm</uri>
+    </include>
+
+    <!-- ── ENU axes marker ───────────────────────────────────────────────── -->
+    <model name="axes">
+      <static>1</static>
+      <link name="link">
+        <visual name="r">
+          <cast_shadows>0</cast_shadows>
+          <pose>5 0 0.1 0 0 0</pose>
+          <geometry><box><size>10 0.01 0.01</size></box></geometry>
+          <material>
+            <ambient>1 0 0 1</ambient><diffuse>1 0 0 1</diffuse>
+            <emissive>1 0 0 1</emissive>
+          </material>
+        </visual>
+        <visual name="g">
+          <cast_shadows>0</cast_shadows>
+          <pose>0 5 0.1 0 0 0</pose>
+          <geometry><box><size>0.01 10 0.01</size></box></geometry>
+          <material>
+            <ambient>0 1 0 1</ambient><diffuse>0 1 0 1</diffuse>
+            <emissive>0 1 0 1</emissive>
+          </material>
+        </visual>
+        <visual name="b">
+          <cast_shadows>0</cast_shadows>
+          <pose>0 0 5.1 0 0 0</pose>
+          <geometry><box><size>0.01 0.01 10</size></box></geometry>
+          <material>
+            <ambient>0 0 1 1</ambient><diffuse>0 0 1 1</diffuse>
+            <emissive>0 0 1 1</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ===== Multi-Vessel TDOA Tracking Scenario ===== -->
+    <!-- Same spawn layout as waves.sdf.
+         Hunters ~60m from target in a triangular formation.
+         world_span=256 in observation node gives correct normalisation. -->
+
+    <!-- Hunter 1: NW of target, ~65m away -->
+    <include>
+      <pose>-45 50 0 0 0 0</pose>
+      <uri>model://blueboat_1</uri>
+    </include>
+
+    <!-- Hunter 2: South of target, ~60m away -->
+    <include>
+      <pose>0 -60 0 0 0 0</pose>
+      <uri>model://blueboat_2</uri>
+    </include>
+
+    <!-- Hunter 3: NE of target, ~65m away -->
+    <include>
+      <pose>45 50 0 0 0 0</pose>
+      <uri>model://blueboat_3</uri>
+    </include>
+
+    <!-- Target vessel: at origin -->
+    <include>
+      <pose>0 0 0 0 0 0</pose>
+      <uri>model://target_vessel</uri>
+    </include>
+
+  </world>
+</sdf>

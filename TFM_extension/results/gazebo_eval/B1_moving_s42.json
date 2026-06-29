@@ -1,0 +1,17 @@
+{
+  "episode_length_s": 60.0,
+  "n_samples": 12,
+  "mean_quality": 0.664,
+  "max_quality": 0.849,
+  "final_quality": 0.401,
+  "mean_dist_m": 79.1,
+  "min_dist_m": 47.8,
+  "target_in_triangle_pct": 25.0,
+  "model": "B1",
+  "scenario": "moving",
+  "seed": 42,
+  "timestamp": "2026-06-26T16:57:21.162031",
+  "noise_std": 0.05,
+  "landmark_source": "tdoa_estimate",
+  "target_moving": "true"
+}

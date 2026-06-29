@@ -1,0 +1,17 @@
+{
+  "episode_length_s": 60.0,
+  "n_samples": 12,
+  "mean_quality": 0.786,
+  "max_quality": 0.79,
+  "final_quality": 0.786,
+  "mean_dist_m": 78.2,
+  "min_dist_m": 60.5,
+  "target_in_triangle_pct": 100.0,
+  "model": "B1N10",
+  "scenario": "static",
+  "seed": 789,
+  "timestamp": "2026-06-26T17:25:08.740583",
+  "noise_std": 0.05,
+  "landmark_source": "tdoa_estimate",
+  "target_moving": "false"
+}

@@ -1,0 +1,14 @@
+{
+  "episode_length_s": 60.0,
+  "n_samples": 12,
+  "mean_quality": 0.676,
+  "max_quality": 0.84,
+  "final_quality": 0.84,
+  "mean_dist_m": 72.0,
+  "min_dist_m": 6.1,
+  "target_in_triangle_pct": 16.7,
+  "model": "OLD",
+  "scenario": "noise10",
+  "seed": 123,
+  "timestamp": "2026-06-26T11:49:51.327695"
+}

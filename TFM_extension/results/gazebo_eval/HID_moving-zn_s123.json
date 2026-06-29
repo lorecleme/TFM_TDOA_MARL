@@ -1,0 +1,17 @@
+{
+  "episode_length_s": 60.0,
+  "n_samples": 12,
+  "mean_quality": 0.608,
+  "max_quality": 0.76,
+  "final_quality": 0.364,
+  "mean_dist_m": 54.8,
+  "min_dist_m": 32.4,
+  "target_in_triangle_pct": 25.0,
+  "model": "HID",
+  "scenario": "moving-zn",
+  "seed": 123,
+  "timestamp": "2026-06-26T16:43:24.724547",
+  "noise_std": 0.0,
+  "landmark_source": "hidden",
+  "target_moving": "true"
+}
