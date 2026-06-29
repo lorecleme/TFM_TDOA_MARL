@@ -1,0 +1,37 @@
+env: "mpe"
+
+env_args:
+  key: tdoa_tracking
+  map_name: ""
+  num_agents: 3
+  num_landmarks: 1
+  time_limit: 100
+  target_movable: False
+  target_speed_mult: 0.0
+  noise_std: 0.05
+  # Ablation: NO SURROUND — remove the surround quality reward
+  # Tests: can triangle + RMSE + distance alone produce agent spreading?
+  # Expected: agents cluster on target, no spreading behavior
+  reward_surround_coeff: 0.0       # ← OFF (was 2.0 default)
+  reward_discrete: False
+  reward_rendundant: False
+  target_pos_mode: "ground_truth"
+  hide_target_positions: False
+
+standardise_returns: False
+standardise_rewards: False
+
+save_animation: True
+use_tensorboard: True
+local_results_path: "results_ablation_no_surround"
+save_model: True
+save_model_interval: 50000
+test_greedy: True
+test_nepisode: 30
+test_interval: 5000
+log_interval: 5000
+animation_interval: 20000
+animation_interval_evaluation: 100
+runner_log_interval: 5000
+learner_log_interval: 5000
+t_max: 500000

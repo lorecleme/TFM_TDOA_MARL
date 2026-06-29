@@ -1,0 +1,53 @@
+# --- TransformerQMix Turbo ---
+# Same learning dynamics as transf_qmix, but faster via parallel envs + AMP.
+# batch_size_run=8 with updates_per_batch=8 keeps the 1:1 train/collect ratio.
+#
+# Run: python src/main.py --config=transf_qmix_turbo --env-config=mpe/tdoa_tracking_static
+
+run: "upb"                     # parallel-compatible run loop
+
+action_selector: "epsilon_greedy"
+epsilon_start: 1.0
+epsilon_finish: 0.05
+epsilon_anneal_time: 100000    # identical to transf_qmix
+
+runner: "parallel"
+batch_size_run: 8
+updates_per_batch: 8           # = batch_size_run, for 1:1 train/collect ratio
+buffer_size: 5000
+batch_size: 32
+
+target_update_interval: 200
+
+# Transformer agent (identical to transf_qmix)
+mac: "n_mac"
+agent: "n_transf"
+agent_output_type: q
+emb: 32
+heads: 4
+depth: 2
+ff_hidden_mult: 4
+dropout: 0
+
+# Transformer mixer (identical to transf_qmix)
+mixer: "transf_mixer"
+mixer_emb: 32
+mixer_heads: 4
+mixer_depth: 2
+qmix_pos_func: "abs"
+
+# Learner (identical hyperparams + AMP toggle)
+learner: "nq_transf_learner"
+weight_decay: 0
+optimizer: "adam"
+lr: 0.001
+td_lambda: 0.6
+use_amp: True                  # mixed precision — speeds up forward/backward, same gradients
+
+obs_agent_id: False
+obs_last_action: False
+env_args:
+  obs_entity_mode: True
+  state_entity_mode: True
+
+name: "transf_qmix_turbo"

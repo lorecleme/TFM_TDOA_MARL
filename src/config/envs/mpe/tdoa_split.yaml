@@ -1,0 +1,44 @@
+env: "mpe"
+
+env_args:
+  key: tdoa_split
+  map_name: ""
+  num_agents: 6
+  num_landmarks: 2
+  time_limit: 100
+  target_movable: True
+  target_speed_mult: 1.0
+  noise_std: 0.0
+  target_pos_mode: "hidden"
+  hide_target_positions: True
+  soft_assign_temperature: 30.0
+  reward_dist_coeff: 0.02
+  reward_surround_coeff: 2.0
+  reward_triangle_continuous: True
+  reward_triangle_coeff: 2.0
+  reward_triangle_temperature: 150.0
+  reward_stillness_coeff: 0.1
+  reward_balance_coeff: 0.0
+  reward_rmse_coeff: 0.0
+  reward_simple_dist_coeff: 0.0
+  reward_coverage_coeff: 3.0
+  reward_discrete: False
+  reward_rendundant: False
+
+standardise_returns: False
+standardise_rewards: False
+
+use_amp: True
+
+save_animation: True
+use_tensorboard: True
+local_results_path: "results_split_test"
+test_greedy: True
+test_nepisode: 30
+test_interval: 50000
+log_interval: 50000
+animation_interval: 50000
+animation_interval_evaluation: 1
+runner_log_interval: 50000
+learner_log_interval: 50000
+t_max: 500000

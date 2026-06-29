@@ -1,0 +1,38 @@
+env: "mpe"
+
+env_args:
+  key: tdoa_tracking
+  map_name: ""
+  num_agents: 3
+  num_landmarks: 1
+  time_limit: 100
+  target_movable: False
+  target_speed_mult: 0.0
+  noise_std: 0.05
+  # Ablation: NO GATE — disable the distance gate on surround reward
+  # Tests: does the gate prevent agents from orbiting at safe distance?
+  # Expected: agents surround but from farther away (higher min_dist),
+  #   since they get full surround credit without approaching
+  surround_gate_distance: 10000.0   # ← always 1.0 (max possible distance < 1000√2 ≈ 1414)
+  reward_discrete: False
+  reward_rendundant: False
+  target_pos_mode: "ground_truth"
+  hide_target_positions: False
+
+standardise_returns: False
+standardise_rewards: False
+
+save_animation: True
+use_tensorboard: True
+local_results_path: "results_ablation_no_gate"
+save_model: True
+save_model_interval: 50000
+test_greedy: True
+test_nepisode: 30
+test_interval: 5000
+log_interval: 5000
+animation_interval: 20000
+animation_interval_evaluation: 100
+runner_log_interval: 5000
+learner_log_interval: 5000
+t_max: 500000

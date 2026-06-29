@@ -1,0 +1,46 @@
+env: "mpe"
+
+env_args:
+  key: tdoa_tracking
+  map_name: ""
+  num_agents: 6
+  num_landmarks: 2
+  time_limit: 100
+  target_movable: False
+  target_speed_mult: 0.0
+  noise_std: 0.05
+  # Reward tuning for 6v2: strong split incentive, approach gradient, disable RMSE
+  soft_assign_temperature: 30.0
+  reward_rmse_coeff: 0.0
+  reward_simple_dist_coeff: 3.0
+  reward_simple_dist_metric: "min"
+  reward_coverage_coeff: 3.0
+  reward_dist_coeff: 0.02
+  reward_surround_coeff: 2.0
+  reward_triangle_continuous: True
+  reward_triangle_coeff: 2.0
+  reward_triangle_temperature: 150.0
+  reward_stillness_coeff: 0.1
+  reward_discrete: False
+  reward_rendundant: False
+  target_pos_mode: "ground_truth"
+  hide_target_positions: False
+
+standardise_returns: False
+standardise_rewards: False
+
+# logs
+save_animation: True
+use_tensorboard: True
+local_results_path: "results_tdoa_static_6vs2"
+save_model: True
+save_model_interval: 50000
+test_greedy: True
+test_nepisode: 30
+test_interval: 20000
+log_interval: 20000
+animation_interval: 20000
+animation_interval_evaluation: 100
+runner_log_interval: 20000
+learner_log_interval: 20000
+t_max: 1000000

@@ -1,0 +1,45 @@
+env: "mpe"
+
+env_args:
+  key: tdoa_tracking
+  map_name: ""
+  num_agents: 3
+  num_landmarks: 1
+  time_limit: 100
+  target_movable: False
+  target_speed_mult: 0.0
+  noise_std: 0.05
+  # Minimal winning recipe: surround + distance only
+  # Ablation-proven: triangle, RMSE, gate, coverage, stillness all unnecessary
+  reward_dist_coeff: 0.01
+  reward_surround_coeff: 2.0
+  reward_triangle_coeff: 0.0          # redundant — surround alone produces triangulation
+  reward_rmse_coeff: 0.0              # harmful  — penalizes approach
+  reward_coverage_coeff: 0.0          # constant in 3v1
+  reward_simple_dist_coeff: 0.0       # unnecessary when surround works
+  reward_stillness_coeff: 0.0         # unnecessary
+  surround_gate_distance: 10000.0     # always 1.0 — gate unnecessary for 3v1
+  reward_discrete: False
+  reward_rendundant: False
+  hide_target_positions: False
+  target_pos_mode: "ground_truth"
+
+standardise_returns: False
+standardise_rewards: False
+
+use_amp: True
+
+save_animation: True
+use_tensorboard: True
+local_results_path: "results_tdoa_static_minimal"
+save_model: True
+save_model_interval: 50000
+test_greedy: True
+test_nepisode: 30
+test_interval: 25000
+log_interval: 25000
+animation_interval: 50000
+animation_interval_evaluation: 100
+runner_log_interval: 5000
+learner_log_interval: 5000
+t_max: 500000

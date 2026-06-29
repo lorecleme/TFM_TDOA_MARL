@@ -1,0 +1,43 @@
+env: "mpe"
+
+env_args:
+  key: tdoa_tracking
+  map_name: ""
+  num_agents: 3
+  num_landmarks: 1
+  time_limit: 100
+  target_movable: True
+  target_speed_mult: 3.0
+  noise_std: 0.05
+  # Reward tuning: larger soft gate for pursuit, strong distance gradient
+  surround_gate_distance: 400.0
+  surround_gate_softness: 80.0
+  reward_simple_dist_coeff: 1.0
+  reward_simple_dist_metric: "mean"
+  reward_dist_coeff: 0.02
+  reward_surround_coeff: 3.0
+  reward_triangle_continuous: True
+  reward_triangle_temperature: 150.0
+  reward_discrete: False
+  reward_rendundant: False
+  target_pos_mode: "ground_truth"
+  hide_target_positions: False
+
+standardise_returns: False
+standardise_rewards: False
+
+# logs
+save_animation: True
+use_tensorboard: True
+local_results_path: "results_tdoa_high_speed"
+save_model: True
+save_model_interval: 50000
+test_greedy: True
+test_nepisode: 30
+test_interval: 10000
+log_interval: 10000
+animation_interval: 20000
+animation_interval_evaluation: 100
+runner_log_interval: 10000
+learner_log_interval: 10000
+t_max: 500000

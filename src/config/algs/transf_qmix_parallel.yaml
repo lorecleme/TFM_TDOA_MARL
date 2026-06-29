@@ -1,0 +1,50 @@
+# --- TransformerQMix PARALLEL - Uses CPU cores + GPU efficiently ---
+
+# Use the upb training loop (multiple gradient steps per data collection,
+# guarded by buffer fill to prevent overfitting on small buffer)
+run: "upb"
+updates_per_batch: 4
+
+action_selector: "epsilon_greedy"
+epsilon_start: 1.0
+epsilon_finish: 0.05
+epsilon_anneal_time: 50000
+
+runner: "parallel"
+batch_size_run: 16
+buffer_size: 5000
+batch_size: 32
+
+target_update_interval: 200
+
+# Base model architecture (proven on M1)
+mac: "n_mac"
+agent: "n_transf"
+agent_output_type: q
+emb: 32
+heads: 4
+depth: 2
+ff_hidden_mult: 4
+dropout: 0
+
+mixer: "transf_mixer"
+mixer_emb: 32
+mixer_heads: 4
+mixer_depth: 2
+qmix_pos_func: "abs"
+
+# Training params from working base config
+learner: "nq_transf_learner"
+weight_decay: 0
+optimizer: "adam"
+lr: 0.001
+td_lambda: 0.6
+grad_norm_clip: 10
+
+obs_agent_id: False
+obs_last_action: False
+env_args:
+  obs_entity_mode: True
+  state_entity_mode: True
+
+name: "transf_qmix_parallel"

@@ -1,0 +1,53 @@
+env: "mpe"
+
+env_args:
+  key: tdoa_tracking
+  map_name: ""
+  num_agents: 6
+  num_landmarks: 2
+  time_limit: 100
+  target_movable: False
+  target_speed_mult: 0.0
+  agent_max_speed: 250                 # halved from 500 — finer control, less jitter
+  agent_accel: 750                     # halved from 1500
+  noise_std: 0.05
+  # Improved 6v2 — Path B surround fix + ablation-proven simplifications
+  # Fix: surround computed per-target (only assigned agents), not all 6
+  # Removed: simple_distance (proven redundant by ablation)
+  # Kept: coverage (essential), triangle (important until surround fix proven)
+  soft_assign_temperature: 30.0
+  reward_rmse_coeff: 0.0
+  reward_simple_dist_coeff: 0.0        # redundant — coverage alone sufficient
+  reward_simple_dist_metric: "min"
+  reward_coverage_coeff: 3.0           # essential — forces 3+3 split
+  reward_dist_coeff: 0.02
+  reward_surround_coeff: 2.0
+  reward_triangle_continuous: True
+  reward_triangle_coeff: 2.0
+  reward_triangle_temperature: 150.0
+  reward_stillness_coeff: 0.1
+  reward_balance_coeff: 0.0            # DISABLED — proved harmful (blocks approach gradient)
+  reward_discrete: False
+  reward_rendundant: False
+  target_pos_mode: "ground_truth"
+  hide_target_positions: False
+
+standardise_returns: False
+standardise_rewards: False
+
+use_amp: True
+
+save_animation: True
+use_tensorboard: True
+local_results_path: "results_tdoa_static_6vs2_improved"
+save_model: True
+save_model_interval: 50000
+test_greedy: True
+test_nepisode: 50
+test_interval: 50000
+log_interval: 50000
+animation_interval: 50000
+animation_interval_evaluation: 100
+runner_log_interval: 50000
+learner_log_interval: 50000
+t_max: 1000000
